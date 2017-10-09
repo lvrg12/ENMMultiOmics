@@ -4,24 +4,23 @@
 #include "stdafx.h"
 #include <iostream>
 #include <stdlib.h>
-#include "DLL.h"
+#include "innerGraph.h"
 
 using namespace std;
 
 
 int main()
 {
-	DoublyLinkedList<int> myList;
-	cout << "Empty?" << myList.isEmpty() << endl;
-	myList.addToDLLHead(1);
-	myList.addToDLLHead(2);
-	myList.addToDLLHead(4);
-	myList.addToDLLTail(0);
-	myList.deleteFromDLLHead();
-	myList.deleteFromDLLTail();
-	myList.addToDLLHead(3);
-	cout << "Empty?" << myList.isEmpty() << endl;
-	myList.printDLL();
+	innerGraph g(5);
+	g.addEdge(1, 10);
+	g.addEdge(1, 11);
+	g.addEdge(1, 19);
+	g.addEdge(2, 23);
+	g.addEdge(2, 24);
+	g.addEdge(2, 27);
+	g.addEdge(2, 29);
+	g.printVerticesFrom(1);
+	g.printVerticesFrom(2);
 
 	return 0;
 }
