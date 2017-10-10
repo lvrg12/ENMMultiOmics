@@ -1,43 +1,72 @@
 #pragma once
 #include <iostream>
+#include <map>
 #include "stdio.h"
 #include "DLL.h"
 
 using namespace std;
 
 //directed graph using adjacency list representation
+template<class T>
 class innerGraph
 {
 	public:
-		innerGraph(int V);
-		void addEdge(int v, int w);
-		void printVerticesFrom(int v);
+		innerGraph();
+		void addEdge(const T& a, const T& b);
+		void addVertice(const T& a);
+		void printVerticesFrom(const T& a);
+		void printAllVertices();
 
 	protected:
 		int V; //number of vertices
-		DoublyLinkedList<int> *adj; //pointer to array containing adjacency lists
+		map<T, DoublyLinkedList<T>> adj;
 };
 
-innerGraph::innerGraph(int V)
+template<class T>
+innerGraph<T>::innerGraph()
 {
-	this->V = V;
-	adj = new DoublyLinkedList<int>[V];
-	int i = 0;
-	for (; i < V; i++)
+	this->V = NULL;
+}
+
+template<class T>
+void innerGraph<T>::addVertice(const T& a)
+{
+	adj[a];
+}
+
+template<class T>
+void innerGraph<T>::addEdge(const T& a, const T& b)
+{
+	if (adj.find(b) == adj.end())
 	{
-		adj[i] = *(new DoublyLinkedList<int>());
+		//do not do anything
+		cout << "destination vertice has not been added to graph" << endl;
+	}
+	else
+	{
+		adj[a].addToDLLTail(b); //Add b to a's list
 	}
 }
 
-void innerGraph::addEdge(int v, int w)
+template<class T>
+void innerGraph<T>::printVerticesFrom(const T& a)
 {
-	adj[v].addToDLLTail(w); //Add w to v's list
+	cout << a << endl;
+	cout << "vvvvvvv" << endl;
+	adj[a].printDLL();
+	cout << endl;
 }
 
-void innerGraph::printVerticesFrom(int v)
+template<class T>
+void innerGraph<T>::printAllVertices()
 {
-	cout << v << endl;
-	cout << "vvvvvvv" << endl;
-	adj[v].printDLL();
-	cout << endl;
+	for (map<T, DoublyLinkedList<T>>::iterator it = adj.begin(); it != adj.end(); ++it)
+	{
+		cout << it->first << endl;
+		cout << "vvvvvvv" << endl;
+		it->second.printDLL();
+		cout << endl;
+	}
+	//prints repeated vectors and its connections
+	//fix bug
 }
